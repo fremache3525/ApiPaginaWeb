@@ -18,5 +18,7 @@ namespace ApiPaginaWeb.Models
         public string nombre { get; set; }
         public string cedula { get; set; }
         public string password { get; set; }
+        public Nullable<int> idEstatus { get; set; }
+        public string token { get; set; }
     }
 }

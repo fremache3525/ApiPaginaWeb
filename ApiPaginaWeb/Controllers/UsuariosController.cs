@@ -9,18 +9,58 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ApiPaginaWeb.Models;
+using System.Web.Http.Cors;
+
 
 namespace ApiPaginaWeb.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class UsuariosController : ApiController
     {
+
         private ComprasEntities db = new ComprasEntities();
+
 
         // GET: api/Usuarios
         public IQueryable<Usuarios> GetUsuarios()
         {
             return db.Usuarios;
         }
+        //
+        [HttpPost]
+        public Reply Login([FromBody] AccessViewModel model)
+        {
+            Reply oR = new Reply();
+            oR.result = 0;
+            try
+            {
+                using (ComprasEntities db = new ComprasEntities())
+                {
+                    var lst = db.Usuarios.Where(d=>d.nombre == model.usuario && d.password == model.password);
+                    if (lst.Count()>0)
+                    {
+                        oR.result = 1;
+                        oR.data = Guid.NewGuid().ToString();
+                        Usuarios oUsuario = lst.First();
+                        oUsuario.token = oR.data.ToString();
+                        db.Entry(oUsuario).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        oR.message = "Datos erroneos";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                oR.message = "Ocurrio un error, estamos corrigiendolo";
+
+            }
+            return oR;
+        }
+        
 
         // GET: api/Usuarios/5
         [ResponseType(typeof(Usuarios))]
@@ -34,6 +74,7 @@ namespace ApiPaginaWeb.Controllers
 
             return Ok(usuarios);
         }
+       
 
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
@@ -71,7 +112,7 @@ namespace ApiPaginaWeb.Controllers
         }
 
         // POST: api/Usuarios
-        [ResponseType(typeof(Usuarios))]
+       /* [ResponseType(typeof(Usuarios))]
         public IHttpActionResult PostUsuarios(Usuarios usuarios)
         {
             if (!ModelState.IsValid)
@@ -83,7 +124,7 @@ namespace ApiPaginaWeb.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = usuarios.id }, usuarios);
-        }
+        }*/
 
         // DELETE: api/Usuarios/5
         [ResponseType(typeof(Usuarios))]
