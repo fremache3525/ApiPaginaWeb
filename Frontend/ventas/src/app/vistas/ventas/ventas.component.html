@@ -1,0 +1,57 @@
+<app-header></app-header>
+<div class="container">
+    <form [formGroup]="editarForm" (ngSubmit)="postForm()">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Id</label>
+            <input type="text" class="form-control" placeholder="Id Producto" formControlName="id" #id>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre del Producto" formControlName="nombre" id="Nombre">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Imagen</label>
+            <input type="text" class="form-control" placeholder="Link de la Imagen" formControlName="imagen" id="Imagen">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Stock</label>
+            <input type="number" class="form-control" placeholder="Stock" formControlName="stock" id="Stock">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Precio</label>
+            <input type="number" class="form-control" placeholder="Precio" #subtotal >
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Cantidad</label>
+            <input type="number" class="form-control" placeholder="Cantidad"  #cantidad>
+        </div>
+        <br><br>
+        <button type="submit" class="btn btn-primary" (click)="getInputValue(subtotal.value);getInputValue2(cantidad.value);getInputValue3(id.value)">Guardar </button>
+        <button type="button" class="btn btn-danger" (click)="eliminar()">Eliminar </button>
+        <button type="button" class="btn btn-dark" (click)="salir()">Salir</button>
+    </form>
+  
+</div>
+
+<div class="container">
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Id_Producto</th>
+        <th scope="col">Id_Factura</th>
+        <th scope="col">Subtotal</th> 
+        <th scope="col">Cantidad</th> 
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let detalle of detalles">
+            <th scope="row">{{detalle.id}}</th>
+            <td>{{detalle.id_producto}}</td>
+            <td>{{detalle.id_factura}}</td>
+            <td>{{detalle.subtotal}}</td>
+            <td>{{detalle.cantidad}}</td>
+        </tr>
+    </tbody>
+  </table></div>
+<app-footer></app-footer>

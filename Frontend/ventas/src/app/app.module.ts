@@ -15,6 +15,9 @@ import { HeaderComponent } from './plantillas/header/header.component';
 import { ProductsComponent } from './vistas/products/products.component';
 import { NuevoComponent } from './vistas/nuevo/nuevo.component';
 import { EditarComponent } from './vistas/editar/editar.component';
+import { UsersComponent } from './vistas/users/users.component';
+import { VentasComponent } from './vistas/ventas/ventas.component';
+import { ComprasRealizadasComponent } from './vistas/compras-realizadas/compras-realizadas.component';
 
 //import { ProductosComponent } from './vistas/productos/productos.component'
 //import { UsuariosComponent } from './vistas/usuarios/usuarios.component';
@@ -29,6 +32,9 @@ import { EditarComponent } from './vistas/editar/editar.component';
     ProductsComponent,
     NuevoComponent,
     EditarComponent,
+    UsersComponent,
+    VentasComponent,
+    ComprasRealizadasComponent,
     //ProductosComponent
    // UsuariosComponent,
    // LoginComponent

@@ -1,22 +1,46 @@
-<div class="container">
-    <button type="button" class="btn btn-primary" (click)="nuevoProducto()">Nuevo </button>
-    <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Imagen</th>
-        <th scope="col">Stock</th> 
+<div class="container" id="div1">
+  <button type="button" class="btn btn-primary" (click)="nuevoProducto()">Nuevo </button>
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Imagen</th>
+      <th scope="col">Stock</th> 
+    </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let producto of productos" (click)="editarProducto(producto.id)">
+          <th scope="row">{{producto.id}}</th>
+          <td>{{producto.nombre}}</td>
+          <td><img src="{{producto.imagen}}" height="100px" width="100px"></td>
+          <td>{{producto.stock}}</td>
       </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let producto of productos" (click)="editarProducto(producto.id)">
-            <th scope="row">{{producto.id}}</th>
-            <td>{{producto.nombre}}</td>
-            <td><img src="{{producto.imagen}}" height="100px" width="100px"></td>
-            <td>{{producto.stock}}</td>
-        </tr>
+  </tbody>
+</table>
 
-    </tbody>
-  </table></div>
+</div>
+<button type="button" class="btn btn-primary" (click)="comprasRealizadas()">Compras Realizadas </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

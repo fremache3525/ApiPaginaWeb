@@ -7,46 +7,40 @@ import { ApiUsuariosService } from 'src/app/servicios/api/api-usuarios.service';
 import { AlertasService } from 'src/app/servicios/alertas/alertas.service';
 
 @Component({
-  selector: 'app-nuevo',
-  templateUrl: './nuevo.component.html',
-  styleUrls: ['./nuevo.component.css']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
-export class NuevoComponent {
-
-  productoid:any =0;
+export class UsersComponent {
+  
   constructor(private activerouter:ActivatedRoute, private router:Router, private api:ApiUsuariosService, private alertas:AlertasService){
   }
   nuevoForm = new FormGroup({
     nombre: new FormControl(''),
-    imagen: new FormControl(''),
-    stock: new FormControl()
+    cedula: new FormControl(''),
+    password: new FormControl(''),
+    idEstatus: new FormControl(1),
+    token: new FormControl('')
   });
   ngOnInit():void{
     let token = this.getToken();
-   
      //console.log(this.editarForm.value);
   
   }
-postForm(){
-  this.api.crearProducto(this.nuevoForm.value).subscribe(data =>{
-    //console.log(data);
-    //let respuesta:ResponseI = data;
-    /*if(respuesta.result == 1){
-      this.alertas.showSucces('Datos Modificados','Hecho');
-    
-    }else{
-      this.alertas.showError(respuesta.message,'Error')
-    }*/
-    this.alertas.showSucces('Datos Guardados','Hecho');
-    this.router.navigate(['products']);
-  })
-  //console.log(this.editarForm.value);
-}
-salir(){
-  this.router.navigate(['products']);
-}
-
-getToken(){
-return localStorage.getItem('token');
-}
+  
+  postForm(){
+    this.api.crearUsuario(this.nuevoForm.value).subscribe(data =>{
+      console.log(this.nuevoForm.value);
+      this.alertas.showSucces('Usuario Guardado','Hecho');
+      this.router.navigate(['login']);
+    })
+    //console.log(this.editarForm.value);
+  }
+  salir(){
+    this.router.navigate(['login']);
+  }
+  
+  getToken(){
+  return localStorage.getItem('token');
+  }
 }

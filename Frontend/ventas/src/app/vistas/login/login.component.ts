@@ -42,6 +42,9 @@ export class LoginComponent {
       }
     });
   }
+  nuevoUsuario(){
+    this.router.navigate(['usuario'])
+  }
   constructor(private api:ApiUsuariosService, private router:Router){
 
   }
