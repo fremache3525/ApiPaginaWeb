@@ -7,11 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using ApiPaginaWeb.Models;
 
 namespace ApiPaginaWeb.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DetallesController : ApiController
     {
         private ComprasEntities db = new ComprasEntities();
@@ -33,6 +35,14 @@ namespace ApiPaginaWeb.Controllers
             }
 
             return Ok(detalles);
+        }
+
+        // GET: api/DeatallesCompras/5
+        [HttpGet]
+        [Route("api/DeatallesCompras/{id}")]
+        public IQueryable<Detalles> ObtenerDeatallesCompras(int id)
+        {
+            return db.Detalles.Where(x=>x.id_factura==id);
         }
 
         // PUT: api/Detalles/5

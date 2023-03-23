@@ -7,11 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using ApiPaginaWeb.Models;
 
+
 namespace ApiPaginaWeb.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FacturasController : ApiController
     {
         private ComprasEntities db = new ComprasEntities();
@@ -21,7 +24,7 @@ namespace ApiPaginaWeb.Controllers
         {
             return db.Facturas;
         }
-
+      
         // GET: api/Facturas/5
         [ResponseType(typeof(Facturas))]
         public IHttpActionResult GetFacturas(int id)

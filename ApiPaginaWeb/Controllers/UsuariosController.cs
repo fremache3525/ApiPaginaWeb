@@ -14,7 +14,7 @@ using System.Web.Http.Cors;
 
 namespace ApiPaginaWeb.Controllers
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsuariosController : ApiController
     {
 
@@ -28,6 +28,7 @@ namespace ApiPaginaWeb.Controllers
         }
         //
         [HttpPost]
+        [Route("api/Usuarios/Ingresar")]
         public Reply Login([FromBody] AccessViewModel model)
         {
             Reply oR = new Reply();
@@ -36,13 +37,13 @@ namespace ApiPaginaWeb.Controllers
             {
                 using (ComprasEntities db = new ComprasEntities())
                 {
-                    var lst = db.Usuarios.Where(d=>d.nombre == model.usuario && d.password == model.password);
-                    if (lst.Count()>0)
+                    var lst = db.Usuarios.Where(d => d.nombre == model.usuario && d.password == model.password);
+                    if (lst.Count() > 0)
                     {
                         oR.result = 1;
-                        oR.data = Guid.NewGuid().ToString();
+                        oR.token = Guid.NewGuid().ToString();
                         Usuarios oUsuario = lst.First();
-                        oUsuario.token = oR.data.ToString();
+                        oUsuario.token = oR.token.ToString();
                         db.Entry(oUsuario).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
                     }
@@ -60,7 +61,7 @@ namespace ApiPaginaWeb.Controllers
             }
             return oR;
         }
-        
+
 
         // GET: api/Usuarios/5
         [ResponseType(typeof(Usuarios))]
@@ -111,8 +112,8 @@ namespace ApiPaginaWeb.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Usuarios
-       /* [ResponseType(typeof(Usuarios))]
+       // POST: api/Usuarios
+       [ResponseType(typeof(Usuarios))]
         public IHttpActionResult PostUsuarios(Usuarios usuarios)
         {
             if (!ModelState.IsValid)
@@ -124,7 +125,7 @@ namespace ApiPaginaWeb.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = usuarios.id }, usuarios);
-        }*/
+        }
 
         // DELETE: api/Usuarios/5
         [ResponseType(typeof(Usuarios))]

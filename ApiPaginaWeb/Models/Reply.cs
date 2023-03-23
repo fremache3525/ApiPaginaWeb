@@ -8,7 +8,7 @@ namespace ApiPaginaWeb.Models
     public class Reply
     {
         public int result { get; set; }
-        public object data { get; set; }
+        public object token { get; set; }
         public string message { get; set; }
     }
 }
