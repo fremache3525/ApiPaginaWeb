@@ -1,5 +1,5 @@
 export interface ResponseI{
     result:number;
-    token:string;
+    token:any;
     message:string;
 }
